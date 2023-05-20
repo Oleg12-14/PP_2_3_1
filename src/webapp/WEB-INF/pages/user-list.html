@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <style>
+        body {
+            background-color: #292929;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        h2 {
+            text-shadow: -2px 2px 1px #660066;
+            text-align: center
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #FF00FF;
+        }
+
+        th {
+            background-color: #660066;
+        }
+
+        td {
+            background-color: #292929;
+        }
+
+        .update-button, .delete-button, .add-button {
+            background-color: #660066;
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .update-button:hover, .delete-button:hover, .add-button:hover {
+            background-color: #993399;
+        }
+
+        .button {
+            background-color: #660066;
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Стили для кнопок "Изменить" и "Удалить" */
+        .update-button, .delete-button {
+            background-color: #660066;
+        }
+
+        /* Стили для кнопок "Добавить" и "Create User" */
+        .add-button {
+            background-color: #660066;
+        }
+
+        /* При наведении на кнопки */
+        .button:hover {
+            background-color: #993399;
+        }
+    </style>
+</head>
+<body>
+<h2>Список Пользователей</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Email</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${allUsers}">
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <form th:method="PATCH" th:action="@{/update-info}" th:url="updateButton" style="display: inline-block;">
+                <input type="hidden" name="userId" th:value="${user.id}"/>
+                <input type="submit" class="update-button" value="Изменить"
+                       onclick="window.location.href = '${updateButton}'"/>
+            </form>
+            <form th:method="DELETE" th:action="@{/deleteUser}" th:url="deleteButton" style="display: inline-block;">
+                <input type="hidden" name="userId" th:value="${user.id}"/>
+                <input type="submit" class="delete-button" value="Удалить"
+                       onclick="window.location.href = '${deleteButton}'"/>
+            </form>
+        </td>
+        <br>
+    </tr>
+    </tbody>
+</table>
+<input type="button" value="Добавить" class="button add-button"
+       onclick="window.location.href = '/addNewUser'"/>
+</body>
+</html>
