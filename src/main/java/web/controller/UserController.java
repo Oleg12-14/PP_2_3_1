@@ -56,10 +56,4 @@ public class UserController {
         return "user-create";
     }
 
-//    @PatchMapping("/user-update/{id}")
-//    public String updateUser(@ModelAttribute("user") User user) {
-//        userService.updateUser(user);
-//        return "redirect:/";
-//    }
-
 }
